@@ -1,0 +1,31 @@
+<h1>Editing color</h1>
+
+<%= render "form", color: @color %>
+
+<br>
+
+<div>
+  <%= link_to "Show this color", @color %> |
+  <%= link_to "Back to colors", colors_path %>
+</div>
+
+
+<!-- Add a color picker element -->
+<div>
+  <label for="colorPicker">Choose a color:</label>
+  <input type="color" id="colorPicker">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const colorPicker = document.getElementById("colorPicker");
+    const colorValInput = document.getElementById("color_val");
+
+    colorPicker.addEventListener("input", () => {
+      // Update the 'color_val' field in the form with the selected color
+      if (colorValInput) {
+        colorValInput.value = colorPicker.value;
+      }
+    });
+  });
+</script>

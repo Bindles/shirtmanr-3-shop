@@ -1,0 +1,27 @@
+<%= form_with(model: logo) do |form| %>
+  <% if logo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(logo.errors.count, "error") %> prohibited this logo from being saved:</h2>
+
+      <ul>
+        <% logo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :img, style: "display: block" %>
+    <%= form.text_field :img %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page</title>
+</head>
+<body>
+  <!-- Your HTML content -->
+
+  <script>
+    // Embedding the instance variable directly in JavaScript
+    var jcolorname = '<%= @color.name %>';
+    var jcolorval = '<%= @color.val %>';
+  // Create a new <p> element
+  var paragraph = document.createElement('p');
+
+  // Set the text content of the <p> element to jcolorname
+  paragraph.textContent = jcolorname + " (" + jcolorval + ")";
+
+  // Set the color of the text to jcolorval
+  paragraph.style.color = jcolorval;
+
+  // Append the <p> element to the body
+  document.body.appendChild(paragraph);
+
+    // Debugging: Show an alert to confirm that JavaScript is running
+    alert(jvar);
+
+    let xxx = 3
+
+    // Now 'exampleVariable' is a JavaScript variable containing the value from the Ruby instance variable
+    console.log(exampleVariable);
+    console.log(xxx)
+  </script>
+</body>
+</html>
+
+<p style="color: green"><%= notice %></p>
+
+<%= render @color %>
+
+<div>
+  <%= link_to "Edit this color", edit_color_path(@color) %> |
+  <%= link_to "Back to colors", colors_path %>
+
+  <%= button_to "Destroy this color", @color, method: :delete %>
+</div>
+
+
+<img src="<%= asset_path('crew_front.png') %>"><br>
+<%= image_tag("crew_front.png") %>

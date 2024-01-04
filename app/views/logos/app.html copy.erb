@@ -1,0 +1,19 @@
+<script>
+  let jjj = "a"
+  let jslogo = '<%= @images %>'
+  let jsd = '<%= @logo_data[0][:name] %>'
+</script>
+aapp
+<button class="btn btn-primary">cool button</button>
+
+<!-- app/views/logos/index.html.erb -->
+<h1>Default Logos</h1>
+
+<% @logo_data.each do |logo| %>
+  <div class="logo">
+    <h2>Name: <%= logo[:name] %></h2>
+    <p>File: <%= logo[:file] %></p>
+<!-- Set the src attribute dynamically -->
+    <%= image_tag("logo/#{logo[:file]}", class: 'img-1', size: 100 ) %>
+  </div>
+<% end %>

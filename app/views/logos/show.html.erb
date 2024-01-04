@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @logo %>
+
+<div>
+  <%= link_to "Edit this logo", edit_logo_path(@logo) %> |
+  <%= link_to "Back to logos", logos_path %>
+
+  <%= button_to "Destroy this logo", @logo, method: :delete %>
+</div>

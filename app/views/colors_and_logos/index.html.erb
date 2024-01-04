@@ -1,0 +1,41 @@
+<!-- app/views/colors_and_logos/index.html.erb -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page</title>
+</head>
+<body>
+  <!-- Your HTML content -->
+
+  <script>
+    // Embedding the instance variable directly in JavaScript
+    var exampleVariable = '<%= @example_variable %>';
+
+    // Debugging: Show an alert to confirm that JavaScript is running
+    alert("JavaScript is running!");
+
+    let xxx = 3
+
+    // Now 'exampleVariable' is a JavaScript variable containing the value from the Ruby instance variable
+    console.log(exampleVariable);
+    console.log(xxx)
+  </script>
+</body>
+</html>
+
+<h1>Colors</h1>
+<ul>
+  <% @colors.each do |color| %>
+    <li><%= color.name %> - <%= color.value %></li>
+  <% end %>
+</ul>
+
+<h1>Logos</h1>
+<ul>
+  <% @logos.each do |logo| %>
+    <li><%= logo.name %> - <%= logo.img %></li>
+  <% end %>
+</ul>   

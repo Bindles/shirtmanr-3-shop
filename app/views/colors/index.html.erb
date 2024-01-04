@@ -1,0 +1,260 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Picker</title>
+  <style>
+
+    <style>
+      body {
+        color: red;
+        margin: 0;
+        font-family: Helvetica, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2em;
+      }
+      .product {
+        position: relative;
+        box-shadow: 0 0 2en rgba(0, 0, 0, 0.2);
+        border-radius: 1em;
+        overflow: hidden;
+      }
+      .img-1 {
+        width: 30em;
+        z-index: 0;
+      }
+      .img-2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 574px;
+        z-index: 2;
+      }
+      p {
+        max-width: 30em;
+        line-height: 27px;
+      }
+      .color {
+        background: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        mix-blend-mode: multiply;
+      }
+      .color-input {
+        background: #fff;
+        border: 1px #ccc solid;
+        border-radius: 4px;
+        padding: 0.3em;
+      }
+
+
+    h1 {
+      transition: color 0.2s;
+    }
+
+    .color-container {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-gap: 5px;
+      max-width: 400px;
+    }
+
+    .color-button {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translate(-2px,-2px);
+      filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+      transition: all 0.1s;
+      font-size: 9px; /* Set a smaller font size */
+    }
+
+    .color-button.selected {
+      transform: none;
+      filter: none;
+      box-shadow: inset 3px 3px 4px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+
+    <div class="product">
+      <img
+        class="img-1"
+        src="<%= asset_path('crew_front.png') %>"
+      />
+      <img
+        class="img-2"
+        src="<%= asset_path('crew_front.png') %>"
+      />
+      <div class="color"></div>
+    </div>
+
+    <div>
+      Customize COlor:
+      <input type="color" class="color-input" value="#ff0000" />
+    </div>
+
+    <script>
+      const color = document.querySelector(".color");
+      const colorInput = document.querySelector(".color-input");
+
+      colorInput.addEventListener("input", () => {
+        color.style.backgroundColor = colorInput.value;
+      });
+    </script>
+
+    <%= render 'appz' %>
+
+<h1 id="colorHeader">Pick a color</h1>
+
+<div class="color-container" id="colorContainer"></div>
+
+<script>
+  // Assuming you have fetched colors using $color-fetch-dc and stored them in a variable named colors
+  const colors = <%= @colors.to_json.html_safe %>;
+
+  let selected = colors[0].val;
+
+  // Function to update the color header and button styles
+  function updateColorDisplay() {
+    document.getElementById('colorHeader').style.color = selected;
+
+    const buttons = document.querySelectorAll('.color-button');
+    buttons.forEach(button => {
+      const color = button.dataset.color;
+      if (color === selected) {
+        button.classList.add('selected');
+      } else {
+        button.classList.remove('selected');
+      }
+    });
+  }
+
+  // Create color buttons and add click event listeners
+  const colorContainer = document.getElementById('colorContainer');
+  colors.forEach(color => {
+    const button = document.createElement('button');
+    button.classList.add('color-button');
+    button.dataset.color = color.val;
+    button.style.background = color.val;
+    button.textContent = color.name.length > 6 ? color.name.substring(0, 6) + '..' : color.name; // Limit name to 6 characters
+
+    button.addEventListener('click', () => {
+      colorPicker.value = color.val
+      selected = color.val;
+      updateColorDisplay();
+      overlayColor = color.val;
+      updateOverlayColor();
+    });
+
+    colorContainer.appendChild(button);
+  });
+
+  // Initial color display
+  updateColorDisplay();
+</script>
+
+
+<br>
+
+</body>
+</html>
+
+
+
+
+
+<!-- app/views/colors/index.html.erb -->
+
+<!-- Your HTML content -->
+
+<!-- Container for displaying Color data -->
+<div id="colorDataContainer"></div>
+
+<!-- JavaScript to make Rails data available in JavaScript -->
+<script>
+  // Define a JavaScript variable and pass Rails data to it
+  const colors = <%= @colors.to_json.html_safe %>;
+
+  // Function to display Color data
+  function displayColorData() {
+    const container = document.getElementById('colorDataContainer');
+    if (container) {
+      container.innerHTML = ''; // Clear previous content
+
+      colors.forEach(color => {
+        const colorInfo = document.createElement('p');
+        colorInfo.textContent = `Name: ${color.name}, Value: ${color.val}`;
+        container.appendChild(colorInfo);
+      });
+    }
+  }
+
+  // Call the display function immediately
+  document.addEventListener("DOMContentLoaded", displayColorData);
+</script>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page</title>
+</head>
+<body>
+  <!-- Your HTML content -->
+
+  <script>
+    // Embedding the instance variable directly in JavaScript
+    var eee = '<%= Color.all.to_json.html_safe %>';
+    var evarz = '<%= Color.all.map(&:val).to_json.html_safe %>';
+    var evar = <%= Color.all.map { |color| { name: color.name, val: color.val } }.to_json.html_safe %>;
+
+    // Debugging: Show an alert to confirm that JavaScript is running
+    alert(evar);
+
+    let xxx = 3
+
+    // Now 'exampleVariable' is a JavaScript variable containing the value from the Ruby instance variable
+    console.log(eee.name);
+    console.log(xxx)
+  </script>
+</body>
+</html>
+
+<p style="color: green"><%= notice %></p>
+
+<h1>Colors</h1>
+
+<div id="colors">
+  <% @colors.each do |color| %>
+    <%= render color %>
+    <p>
+      <%= link_to "Show this color", color %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New color", new_color_path %>
+
+
+<br>
+<br>
+<br>
+

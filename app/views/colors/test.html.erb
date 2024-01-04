@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Svelte Fetch Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/svelte@4.2.8/src/runtime/index.min.js"></script>
+</head>
+<body>
+
+<FetchButton />
+
+<%= form_with(model: @color) do |form| %>
+  <% if color.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(color.errors.count, "error") %> prohibited this color from being saved:</h2>
+
+      <ul>
+        <% color.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :val, style: "display: block" %>
+    <!-- Add an ID to the input field for easier selection in JavaScript -->
+    <%= form.text_field :val, id: "colorValInput" %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<!-- Add a color picker element -->
+<div>
+  <label for="colorPicker">Choose a color:</label>
+  <input type="color" id="colorPicker">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const colorPicker = document.getElementById("colorPicker");
+    const colorValInput = document.getElementById("colorValInput");
+
+    colorPicker.addEventListener("input", () => {
+      // Update the 'val' field in the form with the selected color
+      if (colorValInput) {
+        colorValInput.value = colorPicker.value;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

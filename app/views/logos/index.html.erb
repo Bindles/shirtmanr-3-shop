@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Logos</h1>
+
+<div id="logos">
+  <% @logos.each do |logo| %>
+    <%= render logo %>
+    <p>
+      <%= link_to "Show this logo", logo %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New logo", new_logo_path %>
+
+<img src="C:/dev/project/_html/shirtman/img/crew_front.png">

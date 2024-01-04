@@ -1,0 +1,23 @@
+<script>
+  let jjj = "a"
+  let jslogo = '<%= @images %>'
+  let jsd = '<%= @logo_data[0][:name] %>'
+</script>
+<!-- app/views/logos/index.html.erb -->
+<h1 class="text-center mt-4 mb-5">Default Logos</h1>
+
+<div class="container">
+  <div class="row">
+    <% @logo_data.each do |logo| %>
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card">
+          <%= image_tag("logo/#{logo[:file]}", class: 'card-img-top img-fluid', alt: logo[:name]) %>
+          <div class="card-body">
+            <h5 class="card-title text-center"><%= logo[:name] %></h5>
+            <p class="card-text text-center"><small class="text-muted">File: <%= logo[:file] %></small></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
