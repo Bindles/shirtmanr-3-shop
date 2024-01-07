@@ -2,7 +2,6 @@ class LogosController < ApplicationController
   before_action :set_logo, only: %i[ show edit update destroy ]
 
   def app
-    $aaa = "#{Rails.root}/app/assets/images/logo"
     dir_path = "#{Rails.root}/app/assets/images/logo"
     @dpath = "#{Rails.root}/app/assets/images/logo"
     @images = Dir.entries(dir_path).select { |f| File.file?("#{dir_path}/#{f}") }
@@ -17,9 +16,6 @@ class LogosController < ApplicationController
       {
         name: File.basename(image, File.extname(image)),
         file: image,
-        path: @dpath,
-        #image_tag: ActionController::Base.helpers.image_tag("logo/#{image}", class: 'img-1', size: '100x100')
-        #url: ActionController::Base.helpers.image_path("logo/#{image}") # Add image URL
       }
     end
 
@@ -40,9 +36,6 @@ class LogosController < ApplicationController
       {
         name: File.basename(image, File.extname(image)),
         file: image,
-        path: @dpath,
-        #image_tag: ActionController::Base.helpers.image_tag("logo/#{image}", class: 'img-1', size: '100x100')
-        #url: ActionController::Base.helpers.image_path("logo/#{image}") # Add image URL
       }
     end
 
@@ -59,8 +52,8 @@ class LogosController < ApplicationController
     Rails.logger.info("Received params: dpath=#{@dpath}, old_name=#{old_name}, new_name=#{new_name}")
 
     if old_name.present? && new_name.present?
-      old_path = File.join($aaa, "#{old_name}.png")
-      new_path = File.join($aaa, "#{new_name}.png")
+      old_path = File.join("#{Rails.root}/app/assets/images/logo", "#{old_name}.png")
+      new_path = File.join("#{Rails.root}/app/assets/images/logo", "#{new_name}.png")
 
       Rails.logger.info("Old path: #{old_path}")
       Rails.logger.info("New path: #{new_path}")

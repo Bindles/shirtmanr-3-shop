@@ -1,3 +1,14 @@
+
+
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+
+  <!-- Sample Black Buttons -->
+  <div class="flex justify-center py-4">
+    <button class="custom-btn px-4 py-2 mr-4">Button 1</button>
+    <button class="custom-btn px-4 py-2">Button 2</button>
+  </div>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,13 +23,13 @@
   </head>
   <body>
     <input type="file" id="logoInput" accept="image/*" />
-    <button onclick="changeOverlay()">Change Overlay</button>
+    <button class="btn btn-primary" onclick="changeOverlay()">Change Overlay</button>
     <input type="color" id="colorPicker" value="#ff0000" />
     <!-- Color picker input -->
-    <button onclick="centerLogoHorizontally()">Center Horizontally</button>
-    <button onclick="centerLogoVertically()">Center Vertically</button>
-    <button onclick="resizeLogo()">Resize Logo</button>
-    <button onclick="deleteLogo()">Delete Logo</button>
+    <button class="btn btn-primary" onclick="centerLogoHorizontally()">Center Horizontally</button>
+    <button class="btn btn-primary" onclick="centerLogoVertically()">Center Vertically</button>
+    <button class="btn btn-primary" onclick="resizeLogo()">Resize Logo</button>
+    <button class="btn btn-primary" onclick="deleteLogo()">Delete Logo</button>
     <!-- New button for deleting the logo -->
     <canvas id="canvas" width="530" height="580"></canvas>
 

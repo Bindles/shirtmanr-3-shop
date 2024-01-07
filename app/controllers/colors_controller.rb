@@ -1,8 +1,12 @@
 class ColorsController < ApplicationController
   before_action :set_color, only: %i[ show edit update destroy ]
 
+  def components
+    @colors = Color.all
+  end
   # GET /colors or /colors.json
   def index
+    $globvar = 'hii'
     @colors = Color.all
   end
 
@@ -10,7 +14,9 @@ class ColorsController < ApplicationController
   @color = Color.new
   end
   def appz
-    @colors = Color.all
+  color = Color.new
+  puts 'hi'
+  puts color
   end
 
 
