@@ -3,11 +3,13 @@ Rails.application.routes.draw do
     post 'rename', on: :collection
     collection do
       get 'app'
-      get 'fetch_logo_data'
+      get 'logo_data'
     end
   end
   resources :colors do
     collection do
+      get 'new2'
+      get 'indexx'
       get 'test'
       get 'appz'
       get 'components'

@@ -4,7 +4,17 @@ class ColorsController < ApplicationController
   def components
     @colors = Color.all
   end
+
+  def new2
+    @color = Color.new
+    @colors = Color.all
+  end
   # GET /colors or /colors.json
+  def indexx
+    $globvar = 'hii'
+    @colors = Color.all
+  end
+
   def index
     $globvar = 'hii'
     @colors = Color.all
@@ -40,8 +50,9 @@ class ColorsController < ApplicationController
 
     respond_to do |format|
       if @color.save
-        format.html { redirect_to color_url(@color), notice: "Color was successfully created." }
-        format.json { render :show, status: :created, location: @color }
+        # format.html { redirect_to color_url(@color), notice: "Color was successfully created." }
+        # format.json { render :show, status: :created, location: @color }
+        redirect_to colors_path
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @color.errors, status: :unprocessable_entity }

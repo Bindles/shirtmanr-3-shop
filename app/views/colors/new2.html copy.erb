@@ -1,0 +1,24 @@
+<h1>New color</h1>
+<%= render 'appz' %>
+<%= render "form", color: @color %>
+<%= render 'col' %>
+<%= render 'log' %>
+
+<br>
+
+<h1>Colors</h1>
+
+<div id="colors">
+  <% @colors.each do |color| %>
+    <%= render color %>
+    <p>
+      <%= link_to "Show this color", color %>
+    </p>
+  <% end %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Back to colors", colors_path %>
+</div>

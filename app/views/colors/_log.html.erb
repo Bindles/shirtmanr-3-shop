@@ -1,0 +1,41 @@
+<div id="logoDataContainer"></div>
+
+<script>
+  // Function to fetch logo data
+  async function fetchLogoData() {
+    const response = await fetch('/logos/logo_data');
+    const logoData = await response.json();
+    return logoData;
+  }
+
+  // Function to display Logo data
+  async function displayLogoData() {
+    const logosData = await fetchLogoData();
+
+    const container = document.getElementById('logoDataContainer');
+    if (container) {
+      container.innerHTML = ''; // Clear previous content
+
+      logosData.forEach(eachLogo => {
+        const logoContainer = document.createElement('div');
+        logoContainer.classList.add('logo-container');
+
+        const logoImg = document.createElement('img');
+        logoImg.src = `/assets/logo/${eachLogo.file}`; // Adjust the path as needed
+        logoImg.alt = eachLogo.name;
+        logoImg.width = 120;
+        logoImg.height = 120;
+
+        const logoInfo = document.createElement('p');
+        logoInfo.textContent = `Name: ${eachLogo.name}, File: ${eachLogo.file}, Path: ${eachLogo.path}`;
+
+        logoContainer.appendChild(logoImg);
+        logoContainer.appendChild(logoInfo);
+        container.appendChild(logoContainer);
+      });
+    }
+  }
+
+  // Call the display function immediately
+  document.addEventListener("DOMContentLoaded", displayLogoData);
+</script>

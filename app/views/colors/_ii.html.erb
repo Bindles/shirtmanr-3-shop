@@ -74,12 +74,16 @@
     </div>
 
     <script>
+      const abab = 'bab'
       const color = document.querySelector(".color");
       const colorInput = document.querySelector(".color-input");
       const colorvalforsave = colorInput.value
+      const dick = colorInput.value
 
       colorInput.addEventListener("input", () => {
         color.style.backgroundColor = colorInput.value;
+        color.style.backgroundColor = dick;
+      document.getElementById("color_val").value = colorInput.value;
       document.getElementById("color_val").value = colorInput.value;
       });
     </script>

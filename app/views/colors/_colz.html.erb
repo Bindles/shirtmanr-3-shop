@@ -1,0 +1,80 @@
+<style>
+  h1 {
+    transition: color 0.2s;
+  }
+
+  .color-container {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+    max-width: 400px;
+  }
+
+  .color-button {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-2px, -2px);
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.2));
+    transition: all 0.1s;
+    font-size: 9px;
+  }
+
+  .color-button.selected {
+    transform: none;
+    filter: none;
+    box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+<h1 id="colorHeader">Pick a color</h1>
+
+<div class="color-container" id="colorContainer"></div>
+
+<script>
+  // Assuming you have fetched colors using $color-fetch-dc and stored them in a variable named colors
+  const colors = <%= @colors.to_json.html_safe %>;
+
+  let selected = colors[0].val;
+
+  // Define colorPicker variable here
+  let colorPicker;
+
+  // Function to update the color header and button styles
+  function updateColorDisplay() {
+    document.getElementById('colorHeader').style.color = selected;
+
+    const buttons = document.querySelectorAll('.color-button');
+    buttons.forEach(button => {
+      const color = button.dataset.color;
+      if (color === selected) {
+        button.classList.add('selected');
+      } else {
+        button.classList.remove('selected');
+      }
+    });
+  }
+
+  // Create color buttons and add click event listeners
+  const colorContainer = document.getElementById('colorContainer');
+  colors.forEach(color => {
+    const button = document.createElement('button');
+    button.classList.add('color-button');
+    button.dataset.color = color.val;
+    button.style.background = color.val;
+    button.textContent = color.name.length > 6 ? color.name.substring(0, 6) + '..' : color.name;
+
+    button.addEventListener('click', () => {
+      // Update colorPicker value here
+      colorPicker.value = color.val;
+      selected = color.val;
+      updateColorDisplay();
+      overlayColor = color.val;
+      updateOverlayColor();
+    });
+
+    colorContainer.appendChild(button);
+  });
+
+  // Initial color display
+  updateColorDisplay();
+</script>

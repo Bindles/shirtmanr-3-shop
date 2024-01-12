@@ -1,3 +1,34 @@
+<style>
+    h1 {
+      transition: color 0.2s;
+    }
+
+    .color-container {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-gap: 5px;
+      max-width: 400px;
+    }
+
+    .color-button {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translate(-2px,-2px);
+      filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+      transition: all 0.1s;
+      font-size: 9px; /* Set a smaller font size */
+    }
+
+    .color-button.selected {
+      transform: none;
+      filter: none;
+      box-shadow: inset 3px 3px 4px rgba(0,0,0,0.2);
+    }
+
+  </style>
+
+
+
 <h1 id="colorHeader">Pick a color</h1>
 
 <div class="color-container" id="colorContainer"></div>
@@ -45,4 +76,26 @@
 
   // Initial color display
   updateColorDisplay();
+</script>
+
+<script>
+  // Define a JavaScript variable and pass Rails data to it
+  const colors = <%= @colors.to_json.html_safe %>;
+
+  // Function to display Color data
+  function displayColorData() {
+    const container = document.getElementById('colorDataContainer');
+    if (container) {
+      container.innerHTML = ''; // Clear previous content
+
+      colors.forEach(color => {
+        const colorInfo = document.createElement('p');
+        colorInfo.textContent = `Name: ${color.name}, Value: ${color.val}`;
+        container.appendChild(colorInfo);
+      });
+    }
+  }
+
+  // Call the display function immediately
+  document.addEventListener("DOMContentLoaded", displayColorData);
 </script>
