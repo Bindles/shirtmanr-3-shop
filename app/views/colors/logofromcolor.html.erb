@@ -1,0 +1,37 @@
+<p style="color: green"><%= notice %></p>
+<%= @logo_data.inspect %>
+
+<!-- app/views/logos/index.html.erb -->
+<h1>Default Logos</h1>
+
+<% @logo_data.each do |logo| %>
+  <div class="logo">
+    <h2>Name: <%= logo[:name] %></h2>
+    <p>File: <%= logo[:file] %></p>
+
+    <!-- Set the src attribute dynamically -->
+    <%= image_tag("logo/#{logo[:file]}", class: 'img-1', size: 100 ) %>
+
+    <!-- Form for renaming -->
+    <%= form_with(url: rename_logos_path, method: :post) do |form| %>
+      <%= form.hidden_field :rw, value: controller_name %>
+      <%= form.hidden_field :dpath, value: @dpath %>
+      <%= form.hidden_field :old_name, value: logo[:name] %>
+      <%= form.label :new_name, 'New Name:' %>
+      <%= form.text_field :new_name %>
+      <%= form.submit 'Rename' %>
+    <% end %>
+  </div>
+<% end %>
+
+
+<h1>Logos</h1>
+
+<div id="logos">
+  <% @logo_data.each do |logo| %>
+    <%= logo[:name].inspect %>
+    <p>
+      <%#= link_to "Show this logo", logo %>
+    </p>
+  <% end %>
+</div>

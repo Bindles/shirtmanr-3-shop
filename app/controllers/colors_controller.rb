@@ -1,6 +1,34 @@
 class ColorsController < ApplicationController
   before_action :set_color, only: %i[ show edit update destroy ]
 
+  def pass
+    ac = LogosController.new
+    res = LogosController.dispatch(:get, request, response)
+    res = ac.dispatch(:get, request, response)
+    #instance_var = ac.instance_variable_get(:@passed_var)
+    #ac.instance_variable_get(:@passed_var)
+    LogosController.instance_variable_get(:@passed_var)
+    puts @passed_var
+    puts @passed_two
+
+
+    # request.params[:item_id] = request.params[:id]
+    # res = LogosController.dispatch(:get, request, response)
+    # render json: { msg: "OK", body: JSON.parse(res[2].body) }, status: 200
+  end
+
+  # def logofromcolor
+  #   LogosController.dispatch(:logo_data, request, response)
+  #   #@logo_data = logo_data
+  #   #puts @logo_data.inspect
+  # end
+
+  def logofromcolor
+    @logo_data = fetch_logo_data
+    puts @logo_data.inspect
+  end
+  
+
   def components
     @colors = Color.all
   end

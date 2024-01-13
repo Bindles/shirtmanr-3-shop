@@ -2,12 +2,15 @@ Rails.application.routes.draw do
   resources :logos do
     post 'rename', on: :collection
     collection do
+      get 'get'
       get 'app'
       get 'logo_data'
     end
   end
   resources :colors do
     collection do
+      get 'pass'
+      get 'logofromcolor'
       get 'new2'
       get 'indexx'
       get 'test'

@@ -1,4 +1,16 @@
 <p style="color: green"><%= notice %></p>
+<%= @thiscol.inspect %>
+<h1>Logos</h1>
+
+<div id="logos">
+  <% @colors.each do |colorz| %>
+    <%= render colorz %>
+    <%= colorz.name.inspect %>
+    <p>
+      <%#= link_to "Show this logo", logo %>
+    </p>
+  <% end %>
+</div>
 
 <h1>Logos</h1>
 
