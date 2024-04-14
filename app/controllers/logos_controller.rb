@@ -1,6 +1,8 @@
 class LogosController < ApplicationController
   before_action :set_logo, only: %i[ show edit update destroy ]
 
+    @passeda ='JHAJHKJHS'
+
     def get
     item = {
     "1" => "hello",
@@ -39,14 +41,41 @@ class LogosController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {render :app}
       format.json { render json: app }
+      format.html {render :app}
     end
 
   end
 
+  def passtologo
+    @passeda ='JHAJHKJHS'
+    dir_path = "#{Rails.root}/app/assets/images/logo"
+    @dpath = "#{Rails.root}/app/assets/images/logo"
+    @images = Dir.entries(dir_path).select { |f| File.file?("#{dir_path}/#{f}") }
+    @logo_data = @images.map do |image|
+      {
+        name: File.basename(image, File.extname(image)),
+        file: image,
+        path: @dpath,
+      }
+    end
+
+    # ColorsController.instance_variable_get(:@comesfrom)
+    # p @comesfrom
+    # #if ColorsController.instance_variable_get(:@comesfrom) == "pass"
+    
+    # if @comesfrom == "pass"
+      render pass_colors_path
+    # end
+
+    #@logo_data
+  end
+
+
+
   # New action to respond to JSON fetch request
   def logo_data
+    #@passeda ='JHAJHKJHS'
     dir_path = "#{Rails.root}/app/assets/images/logo"
     @dpath = "#{Rails.root}/app/assets/images/logo"
     @images = Dir.entries(dir_path).select { |f| File.file?("#{dir_path}/#{f}") }
@@ -60,11 +89,20 @@ class LogosController < ApplicationController
         #url: ActionController::Base.helpers.image_path("logo/#{image}") # Add image URL
       }
     end
-    @logo_data
-    # respond_to do |format|
-    #   format.json { render json: @logo_data }
-    #   format.html {render :logo_data}
+
+    # ColorsController.instance_variable_get(:@comesfrom)
+    # p @comesfrom
+    # #if ColorsController.instance_variable_get(:@comesfrom) == "pass"
+    
+    # if @comesfrom == "pass"
+      # render pass_colors_path
     # end
+
+    #@logo_data
+    respond_to do |format|
+      format.json { render json: @logo_data }
+      format.html {render :logo_data}
+    end
   end
 
   def rename
@@ -91,10 +129,10 @@ class LogosController < ApplicationController
       Rails.logger.error("Both old_name and new_name must be present")
     end
     puts @rw
-    if @rw == "colors" || "1"
-    redirect_to logofromcolor_colors_path, notice: "File Renamed. #{old_name} has been renamed with params #{@rw}: #{new_name}"
+    if @rw == "colors" || @rw == "1"
+      redirect_to logofromcolor_colors_path, notice: "File Renamed. #{old_name} has been renamed with params #{@rw}: #{new_name}"
     else
-    redirect_to app_logos_path
+      redirect_to app_logos_path
     end
   end
 

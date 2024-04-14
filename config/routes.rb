@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'cart/show'
+  resources :products
   resources :logos do
     post 'rename', on: :collection
     collection do
@@ -19,7 +21,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'tester' => 'application#tester'
 
+  get 'pass' => 'colors#pass'
   get 'colors_and_logos', to: 'colors_and_logos#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -29,4 +33,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  get 'cart', to: 'cart#show'
+  post 'cart/add'
+  post 'cart/remove'
+  root 'products#index'
 end

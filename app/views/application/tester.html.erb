@@ -1,0 +1,73 @@
+aaa
+
+<div id="logozDataContainer"></div>
+<script>
+
+  async function getLogoData() {
+    const response = await fetch('/logos/logo_data');
+    const data = await response.json();
+    return data;
+  }
+
+  async function displayLogoData() {
+    const logodata = await getLogoData();
+    const lcontainer = document.getElementById('logozDataContainer');
+    //set lcontainer innerhtml to 'hi'
+    if (lcontainer) {
+    lcontainer.innerHTML = 'hi';
+    }
+
+    logodata.forEach(eaLogo => {
+      //create a div for each logo
+
+      const logoImg = document.createElement('img');
+        logoImg.src = `/assets/logo/${eaLogo.file}`; // Adjust the path as needed
+        logoImg.alt = eaLogo.name;
+        logoImg.width = 120;
+        logoImg.height = 120;
+
+      const logoDiv = document.createElement('div');
+      logoDiv.classList.add('logo');
+      logoDiv.innerHTML = `
+        <h3>${eaLogo.name}</h3>
+        <p>${eaLogo.logo_description}</p>
+      `;
+      lcontainer.appendChild(logoDiv);
+      logoDiv.appendChild(logoImg);
+    })
+
+  }
+
+  document.addEventListener("DOMContentLoaded", displayLogoData);
+  // async function GetLogoz2(){
+  //   const response = await fetch('url');
+  //   const data = await response.json();
+  //   return data;
+  // }
+  
+
+  // async function displayLogoz () {
+  //   const logos = await getLogoz();
+  //   const container = document.getElementById('logoz-container');
+  //   logos.forEach(logo => {
+  //     const img = document.createElement('img');
+  //     img.src = logo.url;
+  //     container.appendChild(img);
+  //   });
+
+  //       const img = document.createElement('img');
+  //       img.src = `/assets/logo/${eachLogo.file}`; // Adjust the path as needed
+  //       img.alt = eachLogo.name;
+  //       img.width = 120;
+  //       img.height = 120;
+
+
+  //       const logoInfo = document.createElement('p');
+  //       logoInfo.textContent = `Name: ${logo.name}, File: ${logo.file}, Path: ${logo.path}`;
+
+  //       logoContainer.appendChild(img);
+  //       logoContainer.appendChild(logoInfo);
+  //       container.appendChild(logoz-container);
+  // }
+
+</script>

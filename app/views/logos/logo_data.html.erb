@@ -19,6 +19,7 @@ App
 
     <!-- Form for renaming -->
     <%= form_with(url: rename_logos_path, method: :post) do |form| %>
+      <%= form.hidden_field :rw, value: 1 %>
       <%= form.hidden_field :dpath, value: @dpath %>
       <%= form.hidden_field :old_name, value: logo[:name] %>
       <%= form.label :new_name, 'New Name:' %>
