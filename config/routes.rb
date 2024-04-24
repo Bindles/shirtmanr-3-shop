@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get 'pass' => 'colors#pass'
   get 'colors_and_logos', to: 'colors_and_logos#index'
+  get 'testpr' => 'products#testpr'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

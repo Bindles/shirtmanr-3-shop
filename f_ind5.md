@@ -74,4 +74,5 @@ ind5 () {
                         (*) echo "Invalid input. Please enter a valid number, 'q' to quit, or 'e' to edit a nickname." ;;
                 esac
         done
+        
 }
