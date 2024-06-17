@@ -7,7 +7,22 @@ class ProductsController < ApplicationController
   
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @products = if params[:search]
+      Product.where('name LIKE ?', "%#{params[:search]}%")
+    else
+      Product.all
+    end
+
+    if params[:sort_by].present? && params[:order].present?
+      @products = @products.order(params[:sort_by] => params[:order])
+    end
+
+    @category_values = Product.pluck(:category).uniq
+
+    if params[:category].present?
+      selected_category = params[:category]
+      @products = @products.where(category: selected_category)
+    end
   end
 
   # GET /products/1 or /products/1.json

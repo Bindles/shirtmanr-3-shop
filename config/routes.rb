@@ -21,6 +21,12 @@ Rails.application.routes.draw do
     end
   end
 
+  # resources :cart, only: [:show, :add, :remove] do
+  #   collection do
+  #     get :toggle
+  #   end
+  # end  
+
   get 'tester' => 'application#tester'
 
   get 'pass' => 'colors#pass'

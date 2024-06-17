@@ -67,44 +67,7 @@
   <% end %>
 <% end %>
 
-  <button id="toggle-cart-buttonz" class="bg-blue-500 text-white px-4 py-2 mb-4">Toggle Cart</button>
 
-
-    <!-- Hero Section -->
-    <section class="bg-gray-100 py-16">
-        <div class="container mx-auto text-center">
-            <h1 class="text-4xl font-bold">Welcome to Urban Royalty</h1>
-            <p class="mt-4 text-lg">Your source for stylish urban T-shirts</p>
-            <button class="mt-6 bg-black text-white py-2 px-4 hover:bg-white hover:text-black border-2 border-black" onClick="location.href='shop.html'">Shop Now</button>
-        </div>
-    </section>
-
-
-<!-- products section -->
-<section class="py-16">
-    <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8">Our Products</h2>
-        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <% @products.each do |product| %>
-                <div class="border-2 border-black p-4">
-                    <img src="<%= product.image %>" alt="<%= product.name %> Image" class="w-full h-48 object-cover mb-4">
-                    <h3 class="text-xl font-semibold"><%= product.name %></h3>
-                    <p class="text-gray-700">Type: <%= product.category %></p>
-                    <p class="text-gray-700">Price: <%= usd(product.price) %></p>
-                    <p class="text-gray-700 mb-4">Description: <%= product.description %></p>
-                    
-                    <%= form_with(url: cart_add_path) do |f| %>
-                        <%= f.hidden_field :id, value: product.id %>
-                        <%= f.hidden_field :quantity, value: 1, min: 1 %>
-                        <%= f.submit "Add To Cart", class: "mt-4 bg-black text-white py-2 px-4 w-full hover:bg-white hover:text-black border-2 border-black" %>
-                    <% end %>
-                    
-                    <button class="mt-4 bg-black text-white py-2 px-4 w-full hover:bg-white hover:text-black border-2 border-black">Add to Cart</button>
-                </div>
-            <% end %>
-        </div>
-    </div>
-</section>
 
 
 
@@ -123,28 +86,25 @@
   <% end %>
 </div>
 
-<!-- Button to open the cart modal -->
-<button id="open-cart-button" class="bg-blue-500 text-white px-4 py-2 fixed bottom-4 right-4 rounded-full shadow-lg z-50">Open Cart</button>
-
-<!-- Modal -->
-<div id="cart-modal" class="fixed inset-0 flex justify-end z-50 hidden">
-  <div class="bg-black bg-opacity-50 w-full h-full absolute"></div>
-  <div class="bg-white w-full md:w-1/3 h-full p-6 relative shadow-lg flex flex-col space-y-4">
-    <button id="close-cart-modal" class="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full">X</button>
-    <h1 class="text-2xl font-bold mb-4">Cart</h1>
-    <div id="cart-content" class="flex-grow overflow-auto">
-      <%= turbo_frame_tag "cart" do %>
-        <% if @cart.orderables.count > 0 %>
-          <%= render "cart/orderables" %>
-          <p class="mt-4 text-lg font-semibold">Total: <%= usd(@cart.total) %></p>
-        <% else %>
-          <p>Your cart is empty</p>
-        <% end %>
-      <% end %>
+<!-- Add this modal at the end of your HTML body -->
+<div class="modal fade" id="inspectModal" tabindex="-1" role="dialog" aria-labelledby="inspectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inspectModalLabel">Inspect productz 
+        <%# <% if @product_name%> %>
+          <%= @abc %> 
+  <%#       <% end%> %> </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="inspectModalBody">
+        <!-- Content will be dynamically loaded here via AJAX -->
+      </div>
     </div>
   </div>
 </div>
-
 
 
 
@@ -180,44 +140,3 @@
 </div>
 
 
-<script>
-
-
-    const searchButton = document.getElementById('searchButton');
-    const searchBar = document.getElementById('searchBar');
-
-    searchButton.addEventListener('click', () => {
-        searchBar.classList.toggle('hidden');
-    });
-
-
-
-// // index.js
-// document.addEventListener('turbo:load', setupToggleCartButton);
-
-// function setupToggleCartButton() {
-//   const cartFrame = document.querySelector('turbo-frame#cart');
-//   const toggleButton = document.querySelector('#toggle-cart-button');
-
-//   // Initially hide the cart
-//   cartFrame.style.display = 'none';
-
-//   // Remove any existing event listeners to avoid duplicates
-//   toggleButton.removeEventListener('click', toggleCart);
-
-//   // Add event listener to the toggle button
-//   toggleButton.addEventListener('click', toggleCart);
-// }
-
-// function toggleCart() {
-//   const cartFrame = document.querySelector('turbo-frame#cart');
-//   if (cartFrame.style.display === 'none') {
-//     cartFrame.style.display = 'block';
-//   } else {
-//     cartFrame.style.display = 'none';
-//   }
-// }
-
-
-
-</script>

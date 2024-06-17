@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+
+<div class="container mx-auto py-8">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">T-Shirt Collection</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"> <!-- Change to 2 columns for medium and large screens -->
+            <!-- Loop through each product and render the product card -->
+            <% @products.each do |product| %>
+                <%= render partial: "product", locals: { product: product } %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<div id="products">
+  <% @products.each do |product| %>
+    <%= render product %>
+    <p>
+      <%= link_to "Show this product", product %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New product", new_product_path %>

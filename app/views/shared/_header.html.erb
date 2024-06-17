@@ -1,20 +1,102 @@
-<!-- app/views/shared/_header.html.erb -->
-<header class="bg-blue-500 text-black py-1">
-    <div class="container mx-auto flex justify-between items-center">
-      <div>
-        <span class="text-lg font-bold"><img src="C:\dev\leetcode\_img\ur-logo-01.webp" width=84  height=84 alt="Urban Royalty"></span>
-      </div>
-      <div class="flex space-x-4">
-        <a href="#" class="hover:text-gray-500">Home</a>
-        <a href="#" class="hover:text-gray-500">Code</a>
-        <a href="#" class="hover:text-gray-500">Login</a>
-      </div>
-  
-  
-        <form class="flex items-center" action="/posts" accept-charset="UTF-8" method="get">
-          <input type="text" name="search" id="search" placeholder="Search posts" class="rounded bg-gray-800 text-white px-4 py-2    focus:outline-none focus:shadow-outline" />
-          <input type="submit" name="commit" value="Search" class="ml-2 bg-black text-white px-4 py-2 rounded hover:bg-white hover:text-black focus:outline-none focus:shadow-outline" data-disable-with="Search" />
-  </form>
-  
+<header class="bg-white border-b-2 border-black navbar">
+    <div class="container mx-auto flex justify-between items-center h-11 p-2">
+        <div class="flex items-center">
+            <nav class="ml-6 space-x-4">
+                <%= link_to 'Home', root_path, class: 'text-black hover:underline' %>
+                <%= link_to 'Shop', '#', class: 'text-black hover:underline' %>
+                <%= link_to 'About', '#', class: 'text-black hover:underline' %>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-2 relative">
+            <button id="searchButton" class="text-black">
+                <i class="fas fa-search h-6 w-6"></i>
+            </button>
+            <div id="searchBar" class="hidden flex items-center">
+                <%= form_with url: products_path, method: :get, local: true do %>
+                    <%= text_field_tag :query, params[:query], placeholder: "Search...", class: "border border-gray-400 px-2 py-1 rounded-md w-32 mr-1" %>
+                    <%= submit_tag 'Submit', class: 'text-black bg-black py-1 px-1 hover:bg-blue-500 hover:text-black border-2 border-black' %>
+                <% end %>
+            </div>
+            <button id="open-cart-button" class="fas fa-shopping-cart h-6 w-6">
+
+            </button>
+            <button id="loginButton" class="text-black">
+                <%= link_to '#' do %>
+                    <i class="fas fa-user h-6 w-6"></i>
+                <% end %>
+            </button>
+            
+        </div>
     </div>
-  </header>
+</header>
+
+<!-- Button to open the cart modal -->
+<button id="open-cart-button" class="bg-blue-500 text-white px-4 py-2 mb-4">Toggle Cart</button>
+
+<a href="#" id="open-cart-button">Open</a>
+
+<!-- Button to open the cart modal -->
+<button id="open-cart-button" class="bg-blue-500 text-white px-4 py-2 fixed bottom-4 right-4 rounded-full shadow-lg z-50">Open Cart</button>
+
+<!-- Modal -->
+<div id="cart-modal" class="fixed inset-0 flex justify-end z-50 hidden">
+  <div class="bg-black bg-opacity-50 w-full h-full absolute"></div>
+  <div class="bg-white w-1/3 h-full p-6 relative shadow-lg flex flex-col">
+    <button id="close-cart-modal" class="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full">X</button>
+    <h1 class="text-2xl font-bold mb-4">Cart</h1>
+    <div id="cart-content" class="flex-grow overflow-auto">
+      <%= turbo_frame_tag "cart" do %>
+        <% if @cart.orderables.count > 0 %>
+          <%= render "cart/orderables" %>
+          <p class="mt-4 text-lg font-semibold">Total: <%= usd(@cart.total) %></p>
+        <% else %>
+          <p>Your cart is empty</p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+document.addEventListener('turbo:load', () => {
+  const cartModal = document.getElementById('cart-modal');
+  const openCartButton = document.getElementById('open-cart-button');
+  const closeCartButton = document.getElementById('close-cart-modal');
+
+  // Function to open the cart modal
+  function openCartModal() {
+    cartModal.classList.remove('hidden');
+  }
+
+  // Function to close the cart modal
+  function closeCartModal() {
+    cartModal.classList.add('hidden');
+  }
+
+  // Event listeners
+  openCartButton.addEventListener('click', openCartModal);
+  closeCartButton.addEventListener('click', closeCartModal);
+
+  // Close modal when clicking outside of it
+  cartModal.addEventListener('click', (event) => {
+    if (event.target === cartModal) {
+      closeCartModal();
+    }
+  });
+
+  // Reinitialize event listeners after Turbo navigation
+  document.addEventListener('turbo:render', () => {
+    openCartButton.addEventListener('click', openCartModal);
+    closeCartButton.addEventListener('click', closeCartModal);
+  });
+});
+
+
+
+</script>
+
+
+
+

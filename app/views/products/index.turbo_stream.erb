@@ -1,0 +1,9 @@
+<%# MY_TURBO_ACTION_NOW(NO_CONNROLLER_ACTION)|index.turbo_stream.erb| %>
+<%= turbo_stream.update "products", partial: 'products/products' %>
+
+
+<!-- TURBO_ACTION_YOU_SUGGESTED: app/views/products/index.turbo_stream.erb
+<turbo-stream action="replace" target="products">
+  <%= render partial: 'products', locals: { products: @products } %>
+</turbo-stream>
+-->
