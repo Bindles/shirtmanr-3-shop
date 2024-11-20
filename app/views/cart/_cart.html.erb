@@ -1,11 +1,10 @@
 
 
 <%= turbo_frame_tag "cart" do %>
-  <p>Total: <%= usd(@cart.total) %></p>
-  <h1>Cart</h1>
+  <p>Totalc1: <%= usd(@cart.total) %></p>
   <% if @cart.orderables.count > 0 %>
     <%= render "cart/orderables" %>
-    <p>Total: <%= usd(@cart.total) %></p>
+    <p class="mt-4 text-lg font-semibold">Totalc: <%= usd(@cart.total) %></p>
   <% else %>
     <p>Your cart is empty</p>
   <% end %>

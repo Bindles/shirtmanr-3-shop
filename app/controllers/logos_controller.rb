@@ -112,6 +112,14 @@ class LogosController < ApplicationController
 
     Rails.logger.info("Received params: rw=#{@rw}, dpath=#{@dpath}, old_name=#{old_name}, new_name=#{new_name}")
 
+    # THIS BELOW CODE SEGMENT MADE IT WORK AGAIN **VERY IMPORTANT**
+    # Check if paths are valid
+    if $aaa.nil? 
+      Rails.logger.error("dpath or old_name or new_name is nil aaa is #{$aaa}")
+      redirect_to app_logos_path, alert: "Error: Missing required parameters."
+      return
+    end    
+
     if old_name.present? && new_name.present?
       old_path = File.join($aaa, "#{old_name}.png")
       new_path = File.join($aaa, "#{new_name}.png")
@@ -132,7 +140,7 @@ class LogosController < ApplicationController
     if @rw == "colors" || @rw == "1"
       redirect_to logofromcolor_colors_path, notice: "File Renamed. #{old_name} has been renamed with params #{@rw}: #{new_name}"
     else
-      redirect_to app_logos_path
+      redirect_to app_logos_path, notice: "File Renamed. #{old_name} has been renamed with params #{@rw}: #{new_name}"
     end
   end
 

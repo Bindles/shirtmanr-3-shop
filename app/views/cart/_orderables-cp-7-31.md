@@ -1,0 +1,34 @@
+<%= turbo_frame_tag "cart" do %>
+<div class="space-y-4">
+  <% @cart.orderables.each do |orderable| %>
+    <% product = orderable.product %>
+    <div class="border border-gray-300 p-4 rounded-md flex flex-col space-y-2">
+      <%= image_tag product.image, class: "w-full h-32 object-cover mb-2 rounded-md" %>
+      <div class="text-sm mb-1"><%= product.name %></div>
+      <div class="text-xs mb-1"><%= usd(product.price) %></div>
+      <%= form_with(url: cart_add_path, local: true) do |f| %>
+        <%= f.hidden_field :id, value: product.id %>
+        <%= f.number_field :quantity, value: orderable.quantity, min: 0, max: 99, class: "quantity-field text-center w-full mb-2 border rounded-md p-1" %>
+        <%= f.submit "Update", class: "bg-blue-500 text-white py-1 px-2 w-full mb-2 rounded-md" %>
+      <% end %>
+      <div class="flex justify-between items-center">
+      <%= form_with(url: cart_remove_path) do |f| %>
+        <%= f.hidden_field :id, value: orderable.id %>
+        <%= f.submit "X" %>
+      <% end %>
+        <p class="text-sm"><strong>Total:</strong> <%= usd(orderable.total) %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% end %>
+
+
+<script>
+  document.addEventListener('turbo:submit-end', function(event) {
+    if (event.target.matches('.toggle-cart-button')) {
+      var frameId = event.target.dataset.turboFrame;
+      Turbo.visit(frameId);
+    }
+  });
+</script>
