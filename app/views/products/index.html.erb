@@ -45,7 +45,7 @@
 <% end %>
 
 
-<% if @products.first%>
+<% if @products.first %>
 <%#SORTING BY ATTRIBUTE LINKS | WRITE EACH%>
   <%= @products.first.attributes.keys     %>
   <% unless @products.all? { |c| c[:title].blank? } %>
@@ -66,7 +66,7 @@
 
 <%# AUTO-ITERATE TO DISPLAY LINKS TO EACH COMPONENT ATTRIBUTE FOR SORTING | .EACH DO |attr_name|%>
 
-<% if @products.first%>
+<% if @products.first %>
 
   <% @products.first.attributes.keys.each do |attr_name| %>
     <% unless @products.all? { |c| c[attr_name].blank? } %>
