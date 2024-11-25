@@ -44,28 +44,37 @@
   <%#= render partial: 'test_partial', locals: { component: @component } %>
 <% end %>
 
+
+<% if @producsts.first%>
 <%#SORTING BY ATTRIBUTE LINKS | WRITE EACH%>
-<%= @products.first.attributes.keys     %>
-<% unless @products.all? { |c| c[:title].blank? } %>
-  <%= link_to 'title', products_path(sort_by: 'title', order: (params[:order] == 'asc' && params[:sort_by] == 'title') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
-<% end %>
+  <%= @products.first.attributes.keys     %>
+  <% unless @products.all? { |c| c[:title].blank? } %>
+    <%= link_to 'title', products_path(sort_by: 'title', order: (params[:order] == 'asc' && params[:sort_by] == 'title') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
+  <% end %>
 
-<% unless @products.all? { |c| c[:content].blank? } %>
-  <%= link_to 'content', products_path(sort_by: 'content', order: (params[:order] == 'asc' && params[:sort_by] == 'content') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
-<% end %>
+  <% unless @products.all? { |c| c[:content].blank? } %>
+    <%= link_to 'content', products_path(sort_by: 'content', order: (params[:order] == 'asc' && params[:sort_by] == 'content') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
+  <% end %>
 
-<% unless @products.all? { |c| c[:created_at].blank? } %>
-  <%= link_to 'created_at', products_path(sort_by: 'created_at', order: (params[:order] == 'asc' && params[:sort_by] == 'created_at') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
+  <% unless @products.all? { |c| c[:created_at].blank? } %>
+    <%= link_to 'created_at', products_path(sort_by: 'created_at', order: (params[:order] == 'asc' && params[:sort_by] == 'created_at') ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700' %>
+  <% end %>
+
 <% end %>
 
 <br><br>
 
 <%# AUTO-ITERATE TO DISPLAY LINKS TO EACH COMPONENT ATTRIBUTE FOR SORTING | .EACH DO |attr_name|%>
-<% @products.first.attributes.keys.each do |attr_name| %>
-  <% unless @products.all? { |c| c[attr_name].blank? } %>
-    <%= link_to attr_name.capitalize, products_path(sort_by: attr_name, order: (params[:order] == 'asc' && params[:sort_by] == attr_name) ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700', data: { controller: 'sorting', action: 'click->sorting#sortproducts', sort_by: attr_name, order: (params[:order] == 'asc' && params[:sort_by] == attr_name) ? 'desc' : 'asc' } %>
+
+<% if @producsts.first%>
+
+  <% @products.first.attributes.keys.each do |attr_name| %>
+    <% unless @products.all? { |c| c[attr_name].blank? } %>
+      <%= link_to attr_name.capitalize, products_path(sort_by: attr_name, order: (params[:order] == 'asc' && params[:sort_by] == attr_name) ? 'desc' : 'asc'), class: 'text-blue-500 hover:text-blue-700', data: { controller: 'sorting', action: 'click->sorting#sortproducts', sort_by: attr_name, order: (params[:order] == 'asc' && params[:sort_by] == attr_name) ? 'desc' : 'asc' } %>
+    <% end %>
   <% end %>
-<% end %>
+
+<% end%>
 
   <button id="toggle-cart-buttonz" class="bg-blue-500 text-white px-4 py-2 mb-4">Toggle Cart</button>
 
