@@ -81,6 +81,11 @@ test:
 #
 production:
   <<: *default
-  database: shirtmanr_production
-  username: shirtmanr
-  password: <%= ENV["SHIRTMANR_DATABASE_PASSWORD"] %>
+  # database: shirtmanr_production
+  # username: shirtmanr
+  # password: <%= ENV["SHIRTMANR_DATABASE_PASSWORD"] %>
+  database: shirtman_db_pg
+  username: shirtman_admin
+  password: l064CFy0ZilrxlBGKgMt18bLyhjydiQI  
+  host: dpg-ct2dr18gph6c738pcsl0-a
+  port: 5432
